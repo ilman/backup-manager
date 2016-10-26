@@ -35,6 +35,9 @@ class TransferFile implements Task {
      * @throws \InvalidArgumentException
      */
     public function execute() {
+        if($this->destinationFilesystem->has($this->destinationPath)){
+            $this->destinationFilesystem->delete($this->destinationPath);
+        }
         $this->destinationFilesystem->writeStream(
             $this->destinationPath,
             $this->sourceFilesystem->readStream($this->sourcePath)
